@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kopi Sumba Selatan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- AlpainJS -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- AppJS -->
+    <script src="src/app.js"></script>
+  </head>
+  <body>
+    <!-- Navbar Start -->
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">sumba<span>selatan</span>.</a>
+
+      <div class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Menu</a>
+        <a href="#products">Produk</a>
+        <a href="#contact">Kontak</a>
+      </div>
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button"
+          ><i data-feather="shopping-cart"></i
+        >
+        <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+
+      <!-- Search form start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here...." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- Search form end -->
+
+      <!-- Shopping cart Start -->
+      <div class="shopping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+          <div class="cart-item">
+          <img :src="`img/Products/${item.img}`" :alt="item.name" />
+          <div class="item-detail">
+            <h3 x-text="item.name"></h3>
+            <div class="item-price">
+              <span x-text="rupiah(item.price)"></span> &times;
+              <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+              <span x-text="item.quantity"></span>
+              <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+              <span x-text="rupiah(item.total)"></span>
+            </div>
+          </div>
+          </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart is Empty</h4>
+        <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+        <div class="form-container" x-show="$store.cart.items.length">
+          <form action="" id="checkoutForm">
+            <h5>Customer Detail</h5>
+
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name">
+            </label>
+            <label for="email">
+              <span>Email</span>
+              <input type="email" name="email" id="email">
+            </label>
+            <label for="phone">
+              <span>Phone</span>
+              <input type="number" name="phone" id="phone" autocomplete="off">
+            </label>
+            <button class="checkout-button" type="submit" id="checkout-button" value="checkout">checkout</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Shopping cart end -->
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Hero Section start -->
+    <section class="hero" id="home">
+      <div class="mask-container">
+        <main class="content">
+          <h1>Mari Nikmati Secangkir <span>Kopi</span></h1>
+          <p>
+            Hallo dunia, Saya Asto Kalikit Ndoru. Selamat datang di website
+            kedai kopi sumba selatan.
+          </p>
+        </main>
+      </div>
+    </section>
+    <!-- Hero Section end -->
+
+    <!-- About Section start -->
+    <section id="about" class="about">
+      <h2><span>Tentang</span> Kami</h2>
+
+      <div class="row">
+        <div class="about-img">
+          <img src="img/TentangKami.jpg" alt="Tentang Kami" />
+        </div>
+        <div class="content">
+          <h3>Kenapa memilih kopi kami?</h3>
+          <p>
+            Di Kedai Kopi Sumba Selatan, kami menghadirkan cita rasa kopi
+            terbaik yang berasal dari tanah Sumba, yang terkenal dengan tanah
+            subur dan iklim sempurna untuk menghasilkan biji kopi berkualitas.
+            Setiap biji kopi yang kami sajikan dipilih dengan hati-hati dari
+            petani lokal yang menjaga tradisi serta proses penanaman yang ramah
+            lingkungan. Dengan metode sangrai yang cermat, kami memastikan bahwa
+            aroma dan rasa otentik kopi Sumba tetap terjaga di setiap cangkir
+            yang Anda nikmati.
+          </p>
+          <p>
+            Komitmen kami tidak hanya pada kualitas, tetapi juga pada
+            keberlanjutan dan pemberdayaan komunitas lokal. Dengan setiap
+            pembelian kopi, Anda turut mendukung kesejahteraan para petani dan
+            keluarga mereka di Sumba. Kami bangga menjadi bagian dari perjalanan
+            kopi dari kebun hingga ke cangkir Anda, menawarkan pengalaman kopi
+            yang tidak hanya lezat, tetapi juga penuh makna.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- About Section end -->
+
+    <!-- Menu Section start -->
+    <section id="menu" class="menu">
+      <h2><span>Menu</span> Kami</h2>
+      <p>
+        Di Kedai Kopi Sumba Selatan, kami menghadirkan menu yang beragam dan
+        dirancang untuk memenuhi berbagai selera.
+      <div class="row">
+        <div class="menu-cart">
+          <img src="img/menu/menu1.jpg" alt="Espresso" class="menu-cart-img" />
+          <h3 class="menu-cart-title">- Espresso</h3>
+          <p class="menu-cart-price">IDR 15K</p>
+        </div>
+        <div class="menu-cart">
+          <img
+            src="img/menu/menu3 (2).jpg"
+            alt="Coffe London"
+            class="menu-cart-img"
+          />
+          <h3 class="menu-cart-title">- Coffe London</h3>
+          <p class="menu-cart-price">IDR 25KK</p>
+        </div>
+        <div class="menu-cart">
+          <img src="img/menu/menu4.jpg" alt="Capuccino" class="menu-cart-img" />
+          <h3 class="menu-cart-title">- Capuccino</h3>
+          <p class="menu-cart-price">IDR 10K</p>
+        </div>
+        <div class="menu-cart">
+          <img
+            src="img/menu/menu5.jpg"
+            alt="Drink Coffe"
+            class="menu-cart-img"
+          />
+          <h3 class="menu-cart-title">- Drikn Coffe</h3>
+          <p class="menu-cart-price">IDR 15K</p>
+        </div>
+        <div class="menu-cart">
+          <img src="img/menu/menu7.jpg" alt="Espresso" class="menu-cart-img" />
+          <h3 class="menu-cart-title">- Espresso</h3>
+          <p class="menu-cart-price">IDR 30K</p>
+        </div>
+      </div>
+    </section>
+    <!-- Menu Section end -->
+
+    <!-- Product Section start -->
+    <section class="products" id="products" x-data="products">
+      <h2><span>Produk Unggulan</span> Kami</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste harum
+        magnam totam, esse expedita quae nobis illum doloremque illo, reiciendis
+        similique fugiat velit in quia!
+      </p>
+
+      <div class="row">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="product-cart">
+            <div class="product-icons">
+              <a href="#" @click.prevent="$store.cart.add(item)">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#shopping-cart" />
+                </svg>
+              </a>
+              <a href="#" class="item-detail-button"
+                >
+                <svg
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="img/feather-sprite.svg#eye" />
+              </svg></a>
+            </div>
+            <div class="product-image">
+              <img :src="`img/Products/${item.img}`" :alt="item.name" />
+            </div>
+            <div class="product-content">
+              <h3 x-text="item.name"></h3>
+              <div class="product-stars">
+                <svg
+                width="24"
+                height="24"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+                <svg
+                width="24"
+                height="24"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+                <svg
+                width="24"
+                height="24"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+                <svg
+                width="24"
+                height="24"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+                <svg
+                width="24"
+                height="24"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+              </div>
+              <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+    <!-- Product Section end -->
+
+    <!-- Contact Section start -->
+    <section id="contact" class="contact">
+      <h2><span>Kontak</span> Kami</h2>
+      <p>
+        Hubungi kami
+        untuk pertanyaan atau saran melalui telepon, email, atau kunjungi
+        langsung kedai kami. Jangan lupa ikuti kami di media sosial untuk update
+        terbaru dan promosi menarik. Kami selalu siap membantu Anda dengan
+        sepenuh hati!
+      </p>
+
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125838.8635034118!2d120.177353!3d-9.726664399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c82668a26740b%3A0x6761d979d61c1bb4!2sKec.%20Kota%20Waingapu%2C%20Kabupaten%20Sumba%20Timur%2C%20Nusa%20Tenggara%20Tim.!5e0!3m2!1sid!2sid!4v1728637225168!5m2!1sid!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+
+        <form action="">
+          <div class="input-group">
+            <i data-feather="user"></i>
+            <input type="text" placeholder="Nama" />
+          </div>
+          <div class="input-group">
+            <i data-feather="mail"></i>
+            <input type="email" placeholder="Email" />
+          </div>
+          <div class="input-group">
+            <i data-feather="phone"></i>
+            <input type="tel" placeholder="No Hp" />
+          </div>
+
+          <button type="submit" class="btn">kirim pesan</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Contact Section end -->
+
+    <!-- Footer start -->
+    <footer>
+      <div class="socials">
+        <a href="#"><i data-feather="instagram"></i></a>
+        <a href="#"><i data-feather="twitter"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100073782837649"
+          ><i data-feather="facebook"></i
+        ></a>
+        <a href="https://youtube.com/@eleganc4570?si=EJwHd86OLKtgAknK"
+          ><i data-feather="youtube"></i
+        ></a>
+      </div>
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Kontak</a>
+      </div>
+
+      <div class="credit">
+        <p>Created by <a href="#">Asto Umbu</a>. | &copy; 2024.</p>
+      </div>
+    </footer>
+
+    <!-- Footer end -->
+
+    <!-- Modal Boc Item Detail start -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/Products/Product1.jpg" alt="Product 1" />
+          <div class="product-content">
+            <h3>Product 1</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
+              autem at obcaecati consequuntur atque temporibus tenetur dicta
+              accusamus voluptates nisi officia, laboriosam voluptas. Ea,
+              recusandae?
+            </p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">IDR 30K <span>IDR 55K</span></div>
+            <a href="#"
+              ><i data-feather="shopping-cart"></i><span>add to cart</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Boc Item Detail end -->
+
+    <!-- Feather Icons -->
+    <script>
+      feather.replace();
+    </script>
+
+    <!-- My Javascript -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
